@@ -22,17 +22,12 @@ export default function Home() {
                 Productivity Partner
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                <a className="rounded-md bg-customGradient-200 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-customGradient-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                  <Link
-                    to="taskDisplay"
-                    className="font-semibold leading-6"
-                    smooth={true}
-                    duration={800}
-                  >
-                 Create New Task
-                  </Link>
+                <a href="/login" className="rounded-md bg-customGradient-200 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-customGradient-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+               
+                Login/Sign up To Get Started
+                  
                 </a>
-                <a></a>
+               
               </div>
             </div>
           </div>
