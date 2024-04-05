@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 
-function Login() {
+export default function Login() {
   const [formData, setFormData] = useState({
     email: "",
-    firstName: "",
-    lastName: "",
     password: "",
-    confirmPassword: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -32,19 +29,8 @@ function Login() {
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = "Email is invalid";
     }
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = "First name is required";
-    }
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = "Last name is required";
-    }
     if (!formData.password.trim()) {
       newErrors.password = "Password is required";
-    } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters long";
-    }
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
     }
 
     if (Object.keys(newErrors).length === 0) {
@@ -60,7 +46,7 @@ function Login() {
     <div className="min-h-screen bg-customGradient-900 flex justify-center items-center">
       <div className="max-w-md w-full bg-customGradient-700 p-8 rounded-lg shadow-lg">
         <h2 className="text-3xl font-semibold text-customGradient-50 mb-6">
-          Sign Up
+          Login
         </h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -86,43 +72,7 @@ function Login() {
               <p className="text-red-500 text-xs italic">{errors.email}</p>
             )}
           </div>
-          <div className="mb-4">
-            <label
-              className="block text-customGradient-50 text-sm font-bold mb-2"
-              htmlFor="firstName"
-            >
-              First Name
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
-              id="firstName"
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              placeholder="Enter your first name"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-customGradient-50 text-sm font-bold mb-2"
-              htmlFor="lastName"
-            >
-              Last Name
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
-              id="lastName"
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              placeholder="Enter your last name"
-              required
-            />
-          </div>
-          <div className="mb-4">
+          <div className="mb-6">
             <label
               className="block text-customGradient-50 text-sm font-bold mb-2"
               htmlFor="password"
@@ -139,24 +89,9 @@ function Login() {
               placeholder="Enter your password"
               required
             />
-          </div>
-          <div className="mb-6">
-            <label
-              className="block text-customGradient-50 text-sm font-bold mb-2"
-              htmlFor="confirmPassword"
-            >
-              Confirm Password
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-              id="confirmPassword"
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              placeholder="Confirm your password"
-              required
-            />
+            {errors.password && (
+              <p className="text-red-500 text-xs italic">{errors.password}</p>
+            )}
           </div>
 
           <div className="flex items-center justify-between">
@@ -164,13 +99,20 @@ function Login() {
               className="rounded-md bg-customGradient-200 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-customGradient-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               type="submit"
             >
-              Sign Up
+              Login
             </button>
           </div>
+          <div className="flex justify-center mt-4">
+          <button
+              className="text-sm text-customGradient-200 hover:text-customGradient-300 focus:outline-none"
+              type="button"
+              onClick={() => window.location.href = "/signup"}
+            >
+            New user? Sign up
+          </button>
+        </div>
         </form>
       </div>
     </div>
   );
 }
-
-export default Login;

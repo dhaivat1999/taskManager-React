@@ -22,12 +22,12 @@ export default function Home() {
                 Productivity Partner
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                <a href="/login" className="rounded-md bg-customGradient-200 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-customGradient-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-               
-                Login/Sign up To Get Started
-                  
+                <a
+                  href="/signup"
+                  className="rounded-md bg-customGradient-200 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-customGradient-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Login/Sign up To Get Started
                 </a>
-               
               </div>
             </div>
           </div>
@@ -35,7 +35,7 @@ export default function Home() {
             className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
             aria-hidden="true"
           >
-            <div className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2"></div>
+           
           </div>
         </div>
       </div>

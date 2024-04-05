@@ -1,10 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { gapi } from "gapi-script";
-``;
-import { Link, Element } from "react-scroll";
-import Login from "./Login";
-
-import { GoogleLogin } from "react-google-login";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -15,16 +9,6 @@ export default function Header() {
   const onFailure = (err) => {
     console.log("Login Failure", err);
   };
-
-  useEffect(() => {
-    function start() {
-      gapi.client.init({
-        clientId: clientId,
-        scope: "",
-      });
-    }
-    gapi.load("client:auth2", start);
-  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,34 +46,36 @@ export default function Header() {
           >
             Home
           </a>
-          <a>
-            <Link
-              to="expertise"
-              className="font-semibold leading-6 text-customGradient-50 hover:text-opacity-50"
-              smooth={true}
-              duration={800}
-            >
-              Expertise
-            </Link>
-          </a>
-          {/* <a > 
-          <Link to="projects" className="font-semibold leading-6 text-customGradient-50 hover:text-opacity-50" smooth={true} duration={800}>Projects</Link> 
-          </a> */}
-          <a>
-            <Link
-              to="experience"
-              className="font-semibold leading-6 text-customGradient-50 hover:text-opacity-50"
-              smooth={true}
-              duration={800}
-            >
-              Experience
-            </Link>
+
+          <a
+            href="/signup"
+            className="font-semibold leading-6 text-customGradient-50 hover:text-opacity-50"
+          >
+            Signup
           </a>
           <a
             href="/login"
             className="font-semibold leading-6 text-customGradient-50 hover:text-opacity-50"
           >
             Login
+          </a>
+          <a
+            href="/logout"
+            className="font-semibold leading-6 text-customGradient-50 hover:text-opacity-50"
+          >
+            Logout
+          </a>
+          <a
+            href="/createTask"
+            className="font-semibold leading-6 text-customGradient-50 hover:text-opacity-50"
+          >
+            Create Task
+          </a>
+          <a
+            href="/displayTask"
+            className="font-semibold leading-6 text-customGradient-50 hover:text-opacity-50"
+          >
+            Display Tasks
           </a>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end sm:flex sm:flex-1 sm:justify-end"></div>
