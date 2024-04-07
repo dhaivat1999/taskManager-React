@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     firstName: "",
@@ -8,9 +11,6 @@ function Signup() {
     password: "",
     confirmPassword: "",
   });
-
-
-  
 
   const [errors, setErrors] = useState({});
 
@@ -22,13 +22,12 @@ function Signup() {
     });
   };
 
-  const handleSubmit = (e) => {
-    console.log(formData);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Reset errors
     setErrors({});
-
+  
     // Validation
     const newErrors = {};
     if (formData.password !== formData.confirmPassword) {
@@ -51,15 +50,27 @@ function Signup() {
       newErrors.password = "Password must be at least 6 characters long";
     }
   
-
     if (Object.keys(newErrors).length === 0) {
-      // If no errors, submit the form or perform any other action
-      console.log("Form submitted:", formData);
+      try {
+        // Send form data to the API for signup
+        const response = await axios.post("http://localhost:3000/auth", formData);
+        console.log("Signup successful:", response);
+  
+        // Store JWT token in localStorage
+        localStorage.setItem("token", response.data.token);
+        navigate('/');
+        console.log(response.data.token);
+        // Redirect the user or perform any other action here
+      } catch (error) {
+        console.error("Signup failed:", error);
+        // Handle signup failure
+      }
     } else {
       // If there are errors, set them in the state
       setErrors(newErrors);
     }
   };
+  
 
   return (
     <div className="min-h-screen bg-customGradient-900 flex justify-center items-center">
@@ -68,7 +79,7 @@ function Signup() {
           Sign Up
         </h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
+        <div className="mb-4">
             <label
               className="block text-customGradient-50 text-sm font-bold mb-2"
               htmlFor="email"
@@ -183,16 +194,15 @@ function Signup() {
               <p className="text-red-800 text-s italic">{errors.confirmPassword}</p>
             )}
           </div>
-          <div className="flex items-center justify-between">
-            <button
-              className="rounded-md bg-customGradient-200 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-customGradient-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              type="submit"
-            >
+          <div className="flex items-center justify-between" >
+            <button  type="submit"   className="rounded-md bg-customGradient-200 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-customGradient-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
               Sign Up
             </button>
             <button
-              className="rounded-md bg-customGradient-200 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-customGradient-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-2"
-              onClick={() => window.location.href = "http://localhost:3000/auth/google"}
+              className="rounded-md bg-customGradient-200 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-customGradient-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={() =>
+                (window.location.href = "http://localhost:3000/auth/google")
+              }
             >
               Sign up with Google
             </button>
@@ -201,12 +211,11 @@ function Signup() {
             <button
               className="text-sm text-customGradient-200 hover:text-customGradient-300 focus:outline-none"
               type="button"
-              onClick={() => window.location.href = "/login"}
+              onClick={() => (window.location.href = "/login")}
             >
               Existing User? Sign In
             </button>
-            </div>
-          
+          </div>
         </form>
       </div>
     </div>

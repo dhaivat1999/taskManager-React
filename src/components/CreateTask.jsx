@@ -63,8 +63,8 @@ export default function CreateTask() {
 
   return (
     <>
-      <div className="min-h-screen bg-customGradient-900 flex justify-center items-center">
-        <div className="max-w-md w-full bg-customGradient-700 p-8 rounded-lg shadow-lg">
+      <div className="min-h-screen px-20 py-20 bg-customGradient-900 flex justify-center items-center">
+        <div className="max-w-full w-full bg-customGradient-700 p-8 rounded-lg shadow-lg">
           <h2 className="text-3xl font-semibold text-customGradient-50 mb-6">
             Create New Task
           </h2>

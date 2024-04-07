@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -8,7 +11,7 @@ export default function Login() {
 
   const [errors, setErrors] = useState({});
 
-  const handleChange = (e) => {
+  const handleChange =  (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -16,7 +19,7 @@ export default function Login() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Reset errors
@@ -35,7 +38,13 @@ export default function Login() {
 
     if (Object.keys(newErrors).length === 0) {
       // If no errors, submit the form or perform any other action
-      console.log("Form submitted:", formData);
+      const response = await axios.post("http://localhost:3000/auth/login", formData);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("email", response.data.email);
+      localStorage.setItem("name", response.data.user.firstName);
+      console.log(response.data);
+      // localStorage.setItem("email", response.data.email);
+      navigate('/');
     } else {
       // If there are errors, set them in the state
       setErrors(newErrors);

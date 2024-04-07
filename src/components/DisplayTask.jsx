@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function DisplayTask() {
+  const navigate = useNavigate();
   const [tasks, setTasks] = useState([]);
+
+  const handleTaskClick = (taskId) => {
+    console.log(taskId);
+    navigate(`/updateTask/${taskId}`); // Redirect to task page with task ID
+  };
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -33,6 +40,7 @@ export default function DisplayTask() {
             {tasks.map((task) => (
               <article
                 key={task._id}
+                onClick={() => handleTaskClick(task._id)}
                 className="flex max-w-xl flex-col items-start justify-between"
               >
                 <div className="flex items-center gap-x-4 text-s">
@@ -59,8 +67,16 @@ export default function DisplayTask() {
                   <p className="mt-2 text-xl leading-6 text-customGradient-300">
                     Priority: {task.priority}
                   </p>
+                  <p
+                    className={`mt-2 text-xl leading-6 text-customGradient-300 ${
+                      task.completed ? "text-green-600" : "text-red-800"
+                    }`}
+                  >
+                    Status: {task.completed ? "Completed" : "Incomplete"}
+                  </p>
                   <p className="mt-2 text-xl leading-6 text-customGradient-300">
-                    Complete By : {new Date(task.targetCompletionDate).toLocaleDateString()}
+                    Complete By :{" "}
+                    {new Date(task.targetCompletionDate).toLocaleDateString()}
                   </p>
                 </div>
               </article>

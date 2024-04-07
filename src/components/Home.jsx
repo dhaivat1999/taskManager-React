@@ -1,6 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Element } from "react-scroll";
+import { useParams } from "react-router-dom";
+
 export default function Home() {
+  const params = new URLSearchParams(window.location.search);
+  const [token, setToken] = useState("");
+  useEffect(() => {
+    const Token = params.get('token');
+    console.log(Token);
+    if(localStorage.getItem("token")){
+      setToken(localStorage.getItem("token"));
+      console.log(Token);
+    }
+    if(Token) {
+      setToken(Token);
+      localStorage.setItem("token", Token);
+      console.log(Token);
+    }
+    const storedToken = localStorage.getItem("token");
+  }, []);
+
   return (
     <>
       <div className="bg-customGradient-900 h-screen">
@@ -22,21 +41,36 @@ export default function Home() {
                 Productivity Partner
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                <a
+                {token ? (
+                  <>
+                    <a
+                      href="/displayTask"
+                      className="rounded-md bg-customGradient-200 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-customGradient-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    >
+                      Show your Tasks
+                    </a>
+                    <a
+                      href="/createTask"
+                      className="rounded-md bg-customGradient-200 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-customGradient-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    >
+                      Create new tasks
+                    </a>
+                  </>
+                ) : (
+                  <a
                   href="/signup"
-                  className="rounded-md bg-customGradient-200 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-customGradient-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Login/Sign up To Get Started
-                </a>
+                    className="rounded-md bg-customGradient-200 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-customGradient-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Login/Sign up To Get Started
+                  </a>
+                )}
               </div>
             </div>
           </div>
           <div
             className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
             aria-hidden="true"
-          >
-           
-          </div>
+          ></div>
         </div>
       </div>
     </>
