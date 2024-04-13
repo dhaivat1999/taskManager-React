@@ -47,6 +47,7 @@ export default function Login() {
       navigate('/');
     } else {
       // If there are errors, set them in the state
+      alert("Error in Login, please try again");
       setErrors(newErrors);
     }
   };

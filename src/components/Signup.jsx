@@ -62,6 +62,7 @@ function Signup() {
         console.log(response.data.token);
         // Redirect the user or perform any other action here
       } catch (error) {
+        alert("Error in Signup, pleae try again");
         console.error("Signup failed:", error);
         // Handle signup failure
       }
